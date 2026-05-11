@@ -9,6 +9,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             color: white; 
             background-color: #111;
+            scroll-behavior: smooth; /* Sorgt für schönes Scrollen zum Quiz */
         }
 
         section {
@@ -33,14 +34,18 @@
 
         /* SEKTION 2: Das Mongolische Reich */
         .content-section {
-            /* Hintergrundbild: Karte des Reiches */
             background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://upload.wikimedia.org/wikipedia/commons/e/ea/Mongol_Empire_map.gif');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
         }
 
-        /* Container für die Bilder links und rechts */
+        /* QUIZ SEKTIONEN */
+        .quiz-section {
+            background-color: #1a1a1a;
+            border-top: 5px solid #ff0000;
+        }
+
         .split-container {
             display: flex;
             justify-content: space-between;
@@ -64,9 +69,8 @@
             padding: 0 20px;
         }
 
-        /* Farbanpassungen */
         h1 { font-size: 3rem; margin-bottom: 10px; }
-        h2 { font-size: 2.5rem; color: #ff0000; } /* ROTER TITEL */
+        h2 { font-size: 2.5rem; color: #ff0000; } 
         p { font-size: 1.2rem; line-height: 1.6; }
 
         .btn {
@@ -78,17 +82,27 @@
             font-weight: bold;
             transition: 0.3s;
             display: inline-block;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
         }
         .btn:hover { background-color: #0056b3; transform: scale(1.1); }
+        
+        .btn-correct:active { background-color: #28a745; }
+        .btn-wrong:active { background-color: #dc3545; }
 
-        /* Button am linken Rand positionieren */
         .btn-left {
-            align-self: flex-start; /* Schiebt den Button nach links */
+            align-self: flex-start; 
             margin-top: 20px;
         }
     </style>
 </head>
 <body>
+
+    <audio id="hintergrundmusik" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
 
     <section class="hero">
         <h1>Willkommen auf Genghis Kahn.com</h1>
@@ -99,32 +113,56 @@
 
     <section class="content-section">
         <h2>Die Geschichte</h2>
-        
         <div class="split-container">
             <img src="https://cdn.britannica.com/73/121673-050-4FE5679B/Genghis-Khan-ink-colour-silk-Taipei-Taiwan.jpg" class="leader-img" alt="Genghis Khan">
-            
             <div class="text-center">
                 <p>Das Mongolische Reich</p>
                 <h1 style="font-size: 1.8rem;">
-                    Das mongolische Reich war das größte Land in der Geschichte mit 33 Millionen Quadratkilometern, da es von der südostasiatischen Küste bis nach Osteuropa reicht.
+                    Das mongolische Reich war das größte Land in der Geschichte mit 33 Millionen Quadratkilometern.
                 </h1>
             </div>
-
             <img src="https://s03.s3c.es/imag/_v0/1200x655/e/3/f/imperio-mongol-lider-kublai-khan-1200.jpg" class="leader-img" alt="Kublai Khan">
         </div>
-
         <a href="https://youtu.be/axwkY9H0yPQ?list=RDaxwkY9H0yPQ" class="btn btn-left">Mongolian Throat Singing</a>
+        <p style="margin-top: 40px;">Bist du bereit für das Quiz? Scrolle weiter!</p>
     </section>
 
-    <audio id="hintergrundmusik" loop>
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
+    <section class="quiz-section" id="frage1">
+        <h2>Quiz: Teil 1</h2>
+        <p>Wie war der Geburtsname von Genghis Khan?</p>
+        <div>
+            <button class="btn btn-wrong" onclick="alert('Falsch! Versuch es nochmal.')">Ogedei</button>
+            <a href="#frage2" class="btn btn-correct">Temujin</a>
+            <button class="btn btn-wrong" onclick="alert('Leider nein!')">Batu</button>
+        </div>
+    </section>
+
+    <section class="quiz-section" id="frage2">
+        <h2>Quiz: Teil 2</h2>
+        <p>Welche Stadt wurde 1215 von den Mongolen erobert?</p>
+        <div>
+            <a href="#frage3" class="btn btn-correct">Peking (Zhongdu)</a>
+            <button class="btn btn-wrong" onclick="alert('Knapp daneben!')">Rom</button>
+            <button class="btn btn-wrong" onclick="alert('Falsch!')">Paris</button>
+        </div>
+    </section>
+
+    <section class="quiz-section" id="frage3">
+        <h2>Quiz: Teil 3</h2>
+        <p>Welcher Enkel von Genghis Khan gründete die Yuan-Dynastie in China?</p>
+        <div>
+            <button class="btn btn-wrong" onclick="alert('Nein, das war sein Sohn.')">Tolui</button>
+            <button class="btn btn-wrong" onclick="alert('Falsch!')">Hulagu</button>
+            <button class="btn btn-correct" onclick="alert('RICHTIG! Du bist ein wahrer Kahn!')">Kublai Khan</button>
+        </div>
+    </section>
 
     <script>
+        // Musik startet beim ersten Klick auf der Seite
         window.addEventListener('click', function() {
             const audio = document.getElementById('hintergrundmusik');
-            audio volume = 3;
-            audio.play().catch(error => console.log("Autoplay wurde blockiert:", error));
+            audio.volume = 1.0; // "audio volume = 3" ist ungültig, Maximum ist 1.0
+            audio.play().catch(error => console.log("Autoplay blockiert", error));
         }, { once: true });
     </script>
 

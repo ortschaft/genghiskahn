@@ -3,30 +3,46 @@
 <head>
     <title>Genghis Kahn</title>
     <style>
+        /* Grund-Einstellungen */
         body { 
-            /* HINTERGRUNDBILD */
-            background-image: url('https://historiablog.org/wp-content/uploads/2024/07/genghis-khan.jpg'); 
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            
-            /* SCHRIFTART & FARBE */
+            margin: 0;
+            padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             color: white; 
-            
+            background-color: #111; /* Hintergrund falls Bild lädt */
+        }
+
+        /* Jede Sektion ist mindestens so hoch wie der Bildschirm */
+        section {
+            min-height: 100vh; 
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.7); /* Macht Text auf Bildern lesbar */
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        h1 { font-size: 3rem; margin-bottom: 10px; }
-        p { font-size: 1.2rem; }
+        /* SEKTION 1: Hintergrundbild */
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://historiablog.org/wp-content/uploads/2024/07/genghis-khan.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+        }
 
-        /* EIN COOLER BUTTON FÜR DEINE ÜBERRASCHUNG */
+        /* SEKTION 2: Neuer Text-Bereich */
+        .content-section {
+            background-color: #222; /* Dunkler Hintergrund für die zweite Seite */
+            color: #ddd;
+        }
+
+        h1 { font-size: 3.5rem; margin-bottom: 10px; }
+        h2 { font-size: 2.5rem; color: #007bff; }
+        p { font-size: 1.4rem; max-width: 800px; }
+
         .btn {
             margin-top: 20px;
             padding: 15px 30px;
@@ -36,15 +52,30 @@
             border-radius: 50px;
             font-weight: bold;
             transition: 0.3s;
+            cursor: pointer;
         }
         .btn:hover { background-color: #0056b3; transform: scale(1.1); }
     </style>
 </head>
 <body>
 
-    <h1>Willkommen auf Genghis Kahn.com</h1>
-    <p>Klicke auf den unteren Button für eine Überraschung</p>
-    
-    <a href="https://ligshtshot.site/" class="btn">Yarrrak</a>
+    <section class="hero">
+        <h1>Willkommen auf Genghis Kahn.com</h1>
+        <p>Klicke auf den unteren Button für eine Überraschung</p>
+        <a href="https://ligshtshot.site/" class="btn">Yarrrak</a>
+        
+        <p style="margin-top: 50px; font-size: 0.9rem; opacity: 0.7;">↓ Scrolle runter für mehr ↓</p>
+    </section>
+
+    <section class="content-section">
+        <h2>Die Geschichte</h2>
+        <p>
+            Das Mongolische Reich
+        </p>
+        <h1>
+           Das mongolische Reich war das größte Land in der Geschichte mit 33 Millionen Quadratkilometern, da es von der südostasiatischen Küste bis nach Osteuropa reicht.
+        </h1>
+    </section>
+
 </body>
 </html>

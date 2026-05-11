@@ -123,6 +123,7 @@
     <script>
         window.addEventListener('click', function() {
             const audio = document.getElementById('hintergrundmusik');
+            audio volume = 3;
             audio.play().catch(error => console.log("Autoplay wurde blockiert:", error));
         }, { once: true });
     </script>

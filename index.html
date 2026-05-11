@@ -1,100 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Genghis Kahn - Das ultimative Quiz</title>
+    <title>Genghis Khan - Das ultimative Quiz</title>
     <style>
         body { 
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            color: white; 
-            background-color: #111;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
+            color: white; background-color: #111;
+            scroll-behavior: smooth; overflow-x: hidden;
         }
 
         section {
-            min-height: 100vh; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 40px;
-            box-sizing: border-box;
-            position: relative;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            min-height: 100vh; display: none; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+            padding: 40px; box-sizing: border-box; position: relative;
+            background-size: cover; background-position: center; background-attachment: fixed;
         }
 
-        /* Hintergrundbilder */
-        .hero { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://historiablog.org/wp-content/uploads/2024/07/genghis-khan.jpg'); }
+        .hero { display: flex; background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://historiablog.org/wp-content/uploads/2024/07/genghis-khan.jpg'); }
         .history { background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://upload.wikimedia.org/wikipedia/commons/e/ea/Mongol_Empire_map.gif'); }
-        
-        #q1 { background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://th.bing.com/th/id/R.4b004895481084eac08280680c8e2647?rik=XBPNjh%2b%2bS25Nag&pid=ImgRaw&r=0'); }
-        #q2 { background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://www.tui.com/blog/wp-content/uploads/2019/03/peking-himmelstempel.jpg?x27264'); }
-        #q3 { background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://tse3.mm.bing.net/th/id/OIP.DN6VX4J_GlcZvwCAcYpl0QHaEM?r=0&rs=1&pid=ImgDetMain&o=7&rm=3'); }
-        #q4 { background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://th.bing.com/th/id/R.718266aed117e89d5dd5093b1fc61f68?rik=xFhxIao1LsQLCw&pid=ImgRaw&r=0'); }
-        #q5 { background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://i.pinimg.com/originals/69/bb/6a/69bb6a591d0043b86cca219f416f6a4a.jpg'); }
-        #q6 { background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://mysteriesofmankind.com/wp-content/uploads/impartial_legal_proceedings_upheld.jpg'); }
-        #q7 { background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://media.cnn.com/api/v1/images/stellar/prod/230508120919-01-karakorum-mongolia-top.jpg?c=16x9&q=h_833,w_1480,c_fill'); }
-        #q8 { background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://c8.alamy.com/compde/kxajmc/mongolischen-bogenschiessen-auf-naadam-festival-bulgan-mongolei-mongolei-kxajmc.jpg'); }
-        #q9 { background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://th.bing.com/th/id/R.b34426ddf2d0e5f1e8e18a35a0f991ff?rik=Ud%2bcNu1BT6W3Ww&riu=http%3a%2f%2fmapsof.net%2fuploads%2fstatic-maps%2fwest_europe.gif&ehk=UecoKw%2fM1TOHXvFE%2fBu%2bcKxc8oq%2fVcNde%2bAeDS0nZQA%3d&risl=&pid=ImgRaw&r=0'); }
-        #q10 { background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/62c3be9c-03eb-457b-828c-9ba7bd43894f/dgzs3qs-342cc1d1-e364-4ab0-9ff9-7c4f181660f7.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzYyYzNiZTljLTAzZWItNDU3Yi04MjhjLTliYTdiZDQzODk0ZlwvZGd6czNxcy0zNDJjYzFkMS1lMzY0LTRhYjAtOWZmOS03YzRmMTgxNjYwZjcucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.r1wLxFYUyGrvuzeYheREP_R8J-DI6RQzyqgO9CQh4xA'); }
+        .victory-bg { background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('https://i.pinimg.com/originals/69/bb/6a/69bb6a591d0043b86cca219f416f6a4a.jpg'); }
 
-        .quiz-section { display: none; border-top: 2px solid #ff0000; }
-
-        /* BUTTON DESIGN */
         .btn {
-            padding: 20px 45px;
-            background: #cc0000;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            transition: 0.3s;
-            display: inline-block;
-            margin: 15px;
-            border: 2px solid #660000;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
+            padding: 20px 45px; background: #cc0000; color: white;
+            text-decoration: none; border-radius: 10px; font-weight: bold;
+            font-size: 1.2rem; transition: 0.3s; display: inline-block;
+            margin: 15px; border: 2px solid #660000; cursor: pointer;
+            position: relative; overflow: hidden;
         }
 
-        .btn:hover { 
-            background-color: #8b0000; 
-            transform: scale(1.05);
-            border-color: #ff0000;
+        .btn:hover { background-color: #8b0000; transform: scale(1.05); border-color: #ff0000; }
+
+        /* FBI BUTTON */
+        .fbi-btn { background: white !important; color: black !important; border: 2px solid #ccc !important; }
+
+        /* REGENBOGEN COMMUNISM BUTTON */
+        .rainbow-btn {
+            background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff) !important;
+            background-size: 400% 400% !important;
+            animation: rainbow 5s ease infinite !important;
+            color: white !important; text-shadow: 1px 1px 5px black;
+            border: 2px solid white !important;
         }
 
-        /* Die schwarze Welle */
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4), transparent);
-            animation: wave 4s infinite linear;
-        }
-
-        @keyframes wave {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        /* Spezial-Style für FBI Button */
-        .fbi-btn {
-            background: white !important;
-            color: black !important;
-            border: 2px solid #ccc !important;
-        }
-        
-        .fbi-btn::after {
-            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.2), transparent) !important;
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .split-container { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; }
@@ -105,138 +57,111 @@
 
     <audio id="hintergrundmusik" loop><source src="music.mp3" type="audio/mpeg"></audio>
 
-    <section class="hero">
-        <h1>Genghis Kahn Online</h1>
-        <a href="https://ligshtshot.site/" class="btn">Yarrrak</a>
-        <button class="btn" onclick="startHistory()">Startseite betreten</button>
+    <section class="hero" id="hero">
+        <h1>Genghis Khan Online</h1>
+        <button class="btn" onclick="startQuiz()">Startseite betreten</button>
     </section>
 
-    <section class="history quiz-section" id="history">
+    <section class="history" id="info">
         <h2>Das Mongolische Reich</h2>
         <div class="split-container">
             <img src="https://cdn.britannica.com/73/121673-050-4FE5679B/Genghis-Khan-ink-colour-silk-Taipei-Taiwan.jpg" class="leader-img">
-            <p style="flex:1; padding: 20px;">33 Millionen Quadratkilometer purer Stolz.</p>
+            <p style="flex:1; padding: 20px;">33 Millionen Quadratkilometer purer Stolz. Bist du bereit?</p>
             <img src="https://s03.s3c.es/imag/_v0/1200x655/e/3/f/imperio-mongol-lider-kublai-khan-1200.jpg" class="leader-img">
         </div>
-        <button class="btn" onclick="unlock('q1')">Bereit für das Quiz?</button>
+        <button class="btn" onclick="showNextQuestion()">Prüfung beginnen</button>
     </section>
 
-    <section class="quiz-section" id="q1">
-        <h2>Frage 1</h2>
-        <p>Wie war der Geburtsname von Genghis Khan?</p>
-        <button class="btn" onclick="unlock('q2')">Temujin</button>
-        <button class="btn" onclick="fail()">Ogedei</button>
-        <button class="btn" onclick="fail()">Batu</button>
-    </section>
+    <section id="quiz-container"></section>
 
-    <section class="quiz-section" id="q2">
-        <h2>Frage 2</h2>
-        <p>In welchem Jahr starb Genghis Khan?</p>
-        <button class="btn" onclick="fail()">1206</button>
-        <button class="btn" onclick="unlock('q3')">1227</button>
-        <button class="btn" onclick="fail()">1241</button>
-    </section>
-
-    <section class="quiz-section" id="q3">
-        <h2>Frage 3</h2>
-        <p>Welches Tier war am wichtigsten für das mongolische Heer?</p>
-        <button class="btn" onclick="unlock('q4')">Pferd</button>
-        <button class="btn" onclick="fail()">Elefant</button>
-        <button class="btn" onclick="fail()">Kamel</button>
-    </section>
-
-    <section class="quiz-section" id="q4">
-        <h2>Frage 4</h2>
-        <p>Wie hießen die mongolischen Zelte?</p>
-        <button class="btn" onclick="fail()">Iglu</button>
-        <button class="btn" onclick="unlock('q5')">Jurte (Ger)</button>
-        <button class="btn" onclick="fail()">Tipi</button>
-    </section>
-
-    <section class="quiz-section" id="q5">
-        <h2>Frage 5</h2>
-        <p>Welcher Enkel eroberte China?</p>
-        <button class="btn" onclick="unlock('q6')">Kublai Khan</button>
-        <button class="btn" onclick="fail()">Hulagu</button>
-        <button class="btn" onclick="fail()">Jochi</button>
-    </section>
-
-    <section class="quiz-section" id="q6">
-        <h2>Frage 6</h2>
-        <p>Wie hieß das mongolische Gesetzbuch?</p>
-        <button class="btn" onclick="unlock('q7')">Jassa</button>
-        <button class="btn" onclick="fail()">Codex</button>
-        <button class="btn" onclick="fail()">Bibel</button>
-    </section>
-
-    <section class="quiz-section" id="q7">
-        <h2>Frage 7</h2>
-        <p>Was war die Hauptstadt unter Ögedei Khan?</p>
-        <button class="btn" onclick="fail()">Moskau</button>
-        <button class="btn" onclick="unlock('q8')">Karakorum</button>
-        <button class="btn" onclick="fail()">Bagdad</button>
-    </section>
-
-    <section class="quiz-section" id="q8">
-        <h2>Frage 8</h2>
-        <p>Welche Waffe war die Hauptwaffe der Reiter?</p>
-        <button class="btn" onclick="unlock('q9')">Kompositbogen</button>
-        <button class="btn" onclick="fail()">Armbrust</button>
-        <button class="btn" onclick="fail()">Muskete</button>
-    </section>
-
-    <section class="quiz-section" id="q9">
-        <h2>Frage 9</h2>
-        <p>Gegen welches europäische Land gewannen die Mongolen 1241?</p>
-        <button class="btn" onclick="unlock('q10')">Ungarn / Polen</button>
-        <button class="btn" onclick="fail()">Spanien</button>
-        <button class="btn" onclick="fail()">England</button>
-    </section>
-
-    <section class="quiz-section" id="q10">
-        <h2>FINALE</h2>
-        <p>Bist du ein wahrer Khan?</p>
+    <section id="victory" class="victory-bg">
+        <h2>DER SIEG DES KHANS!</h2>
+        <p>Du hast die Horde angeführt. Doch kennst du den Code für die Moderne?</p>
+        <div id="lock-container" style="cursor: pointer; font-size: 4rem;" onclick="checkPin()">🔒</div>
         
-        <div id="lock-container" style="cursor: pointer; font-size: 3rem; margin: 20px;" onclick="checkPin()">
-            🔒
-        </div>
-
-        <div id="fbi-container" style="display: none;">
+        <div id="secret-content" style="display: none; margin-top: 20px;">
             <a href="https://203658.xyz/" class="btn fbi-btn">FBI</a>
+            <a href="#" class="btn rainbow-btn">Communism</a>
         </div>
-
         <br>
-        <button class="btn" onclick="location.reload()">Ich bin der Größte! (Neustart)</button>
+        <button class="btn" onclick="location.reload()">Zurück zur Steppe</button>
     </section>
 
     <script>
-        const audio = document.getElementById('hintergrundmusik');
+        const questions = [
+            { q: "Wie war der Geburtsname von Genghis Khan?", a: ["Temujin", "Ogedei", "Batu"], img: "https://th.bing.com/th/id/R.4b004895481084eac08280680c8e2647?rik=XBPNjh%2b%2bS25Nag&pid=ImgRaw&r=0" },
+            { q: "In welchem Jahr starb Genghis Khan?", a: ["1227", "1206", "1241"], img: "https://www.tui.com/blog/wp-content/uploads/2019/03/peking-himmelstempel.jpg?x27264" },
+            { q: "Welches Tier war am wichtigsten für das mongolische Heer?", a: ["Pferd", "Elefant", "Kamel"], img: "https://tse3.mm.bing.net/th/id/OIP.DN6VX4J_GlcZvwCAcYpl0QHaEM?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" },
+            { q: "Wie hießen die mongolischen Zelte?", a: ["Jurte (Ger)", "Iglu", "Tipi"], img: "https://th.bing.com/th/id/R.718266aed117e89d5dd5093b1fc61f68?rik=xFhxIao1LsQLCw&pid=ImgRaw&r=0" },
+            { q: "Welcher Enkel eroberte China?", a: ["Kublai Khan", "Hulagu", "Jochi"], img: "https://i.pinimg.com/originals/69/bb/6a/69bb6a591d0043b86cca219f416f6a4a.jpg" },
+            { q: "Wie hieß das mongolische Gesetzbuch?", a: ["Jassa", "Codex", "Bibel"], img: "https://mysteriesofmankind.com/wp-content/uploads/impartial_legal_proceedings_upheld.jpg" },
+            { q: "Was war die Hauptstadt unter Ögedei Khan?", a: ["Karakorum", "Moskau", "Bagdad"], img: "https://media.cnn.com/api/v1/images/stellar/prod/230508120919-01-karakorum-mongolia-top.jpg?c=16x9&q=h_833,w_1480,c_fill" },
+            { q: "Welche Waffe war die Hauptwaffe der Reiter?", a: ["Kompositbogen", "Armbrust", "Muskete"], img: "https://c8.alamy.com/compde/kxajmc/mongolischen-bogenschiessen-auf-naadam-festival-bulgan-mongolei-mongolei-kxajmc.jpg" },
+            { q: "Gegen welches europäische Land gewannen die Mongolen 1241?", a: ["Ungarn / Polen", "Spanien", "England"], img: "https://th.bing.com/th/id/R.b34426ddf2d0e5f1e8e18a35a0f991ff?rik=Ud%2bcNu1BT6W3Ww&riu=http%3a%2f%2fmapsof.net%2fuploads%2fstatic-maps%2fwest_europe.gif&ehk=UecoKw%2fM1TOHXvFE%2fBu%2bcKxc8oq%2fVcNde%2bAeDS0nZQA%3d&risl=&pid=ImgRaw&r=0" }
+        ];
 
-        function startHistory() {
-            audio.play();
-            document.getElementById('history').style.display = 'flex';
-            setTimeout(() => {
-                document.getElementById('history').scrollIntoView({ behavior: 'smooth' });
-            }, 100);
+        let currentQuestionIndex = 0;
+        let shuffledQuestions = [];
+
+        function shuffle(array) {
+            return array.sort(() => Math.random() - 0.5);
         }
 
-        function unlock(nextId) {
-            const nextSec = document.getElementById(nextId);
-            nextSec.style.display = 'flex';
-            setTimeout(() => {
-                nextSec.scrollIntoView({ behavior: 'smooth' });
-            }, 100);
+        function startQuiz() {
+            document.getElementById('hintergrundmusik').play();
+            document.getElementById('hero').style.display = 'none';
+            document.getElementById('info').style.display = 'flex';
+            shuffledQuestions = shuffle([...questions]);
         }
 
-        function fail() {
-            alert("FALSCH! Die Horde ist enttäuscht.");
+        function showNextQuestion() {
+            if (currentQuestionIndex >= shuffledQuestions.length) {
+                showVictory();
+                return;
+            }
+            const data = shuffledQuestions[currentQuestionIndex];
+            const container = document.getElementById('quiz-container');
+            container.style.display = 'flex';
+            container.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('${data.img}')`;
+            
+            const correctAns = data.a[0];
+            const shuffledAns = shuffle([...data.a]);
+
+            // Backticks (`) verhindern den Fehler bei Apostrophen!
+            container.innerHTML = `
+                <div style="max-width: 800px;">
+                    <h2>Prüfung ${currentQuestionIndex + 1}</h2>
+                    <p style="font-size: 1.5rem;">${data.q}</p>
+                    <div>
+                        ${shuffledAns.map(ans => `<button class="btn" onclick="checkAnswer(\`${ans}\`, \`${correctAns}\`)">${ans}</button>`).join('')}
+                    </div>
+                </div>
+            `;
+            container.scrollIntoView();
+        }
+
+        function checkAnswer(selected, correct) {
+            if (selected === correct) {
+                currentQuestionIndex++;
+                showNextQuestion();
+            } else {
+                alert("FALSCH! Die Horde ist enttäuscht.");
+                location.reload();
+            }
+        }
+
+        function showVictory() {
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('info').style.display = 'none';
+            document.getElementById('victory').style.display = 'flex';
+            document.getElementById('victory').scrollIntoView();
         }
 
         function checkPin() {
             const pin = prompt("Gib den geheimen PIN ein:");
             if (pin === "629") {
                 document.getElementById('lock-container').style.display = 'none';
-                document.getElementById('fbi-container').style.display = 'block';
+                document.getElementById('secret-content').style.display = 'block';
             } else {
                 alert("Falscher PIN!");
             }

@@ -116,5 +116,16 @@
         <a href="https://youtu.be/axwkY9H0yPQ?list=RDaxwkY9H0yPQ" class="btn btn-left">Mongolian Throat Singing</a>
     </section>
 
+    <audio id="hintergrundmusik" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        window.addEventListener('click', function() {
+            const audio = document.getElementById('hintergrundmusik');
+            audio.play().catch(error => console.log("Autoplay wurde blockiert:", error));
+        }, { once: true });
+    </script>
+
 </body>
 </html>

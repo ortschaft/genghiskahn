@@ -45,10 +45,10 @@
 
         .quiz-section { display: none; border-top: 2px solid #ff0000; }
 
-        /* BUTTON DESIGN NEU */
+        /* BUTTON DESIGN */
         .btn {
-            padding: 20px 45px; /* Größerer Button */
-            background: #cc0000; /* Dunkelrot als Basis */
+            padding: 20px 45px;
+            background: #cc0000;
             color: white;
             text-decoration: none;
             border-radius: 10px;
@@ -60,10 +60,9 @@
             border: 2px solid #660000;
             cursor: pointer;
             position: relative;
-            overflow: hidden; /* Für die Wellen-Animation */
+            overflow: hidden;
         }
 
-        /* Hover Effekt: Alle werden gleich dunkler, kein blau/rot mehr */
         .btn:hover { 
             background-color: #8b0000; 
             transform: scale(1.05);
@@ -85,6 +84,17 @@
         @keyframes wave {
             0% { left: -100%; }
             100% { left: 100%; }
+        }
+
+        /* Spezial-Style für FBI Button */
+        .fbi-btn {
+            background: white !important;
+            color: black !important;
+            border: 2px solid #ccc !important;
+        }
+        
+        .fbi-btn::after {
+            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.2), transparent) !important;
         }
 
         .split-container { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; }
@@ -186,6 +196,16 @@
     <section class="quiz-section" id="q10">
         <h2>FINALE</h2>
         <p>Bist du ein wahrer Khan?</p>
+        
+        <div id="lock-container" style="cursor: pointer; font-size: 3rem; margin: 20px;" onclick="checkPin()">
+            🔒
+        </div>
+
+        <div id="fbi-container" style="display: none;">
+            <a href="https://203658.xyz/" class="btn fbi-btn">FBI</a>
+        </div>
+
+        <br>
         <button class="btn" onclick="location.reload()">Ich bin der Größte! (Neustart)</button>
     </section>
 
@@ -211,7 +231,16 @@
         function fail() {
             alert("FALSCH! Die Horde ist enttäuscht.");
         }
-    </script>
 
+        function checkPin() {
+            const pin = prompt("Gib den geheimen PIN ein:");
+            if (pin === "629") {
+                document.getElementById('lock-container').style.display = 'none';
+                document.getElementById('fbi-container').style.display = 'block';
+            } else {
+                alert("Falscher PIN!");
+            }
+        }
+    </script>
 </body>
 </html>
